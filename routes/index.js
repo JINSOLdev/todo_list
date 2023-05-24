@@ -1,26 +1,22 @@
-// import modules
-const express = require('express')
-const app = express()
-const router = express.Router()
+// All Routers Exports
 
-// Controller 불러와서 exports 메소드 사용
-const controller = require('../controllers/todo')
+/*
+ 새로운 routes 인덱스가 생길때마다
+ 리팩토링해서 함께 관리한다
+ 
+ ex)
+ const NewRouter = require('./new');
+ router.use('/new', newRouter);
+*/
 
-// Main
-// http://localhost:3000/todo/
-router.get('/', controller.get) 
+const express = require("express");
+const app = express();
+const router = express.Router();
 
-// Write
-// http://localhost:3000/todo/write
-router.post('/write', controller.write)
+// Todo Router
+const TodoRouter = require("./todo");
 
-// Edit
-router.get('/edit/:id', controller.edit)
+// Refactoring
+router.use("/todo", TodoRouter); // http://localhost:3000/todo 로 라우팅
 
-// Update
-router.post('/update/:id', controller.update)
-
-// Remove
-router.get('/remove/:id', controller.remove)
-
-module.exports = router
+module.exports = router;

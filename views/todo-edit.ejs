@@ -1,22 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TODO</title>
+    <title>TODO EDIT</title>
     <link
       rel="stylesheet"
       type="text/css"
       href="/public/stylesheets/todo.css"
     />
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="//cdn.jsdelivr.net/npm/font-kopub@1.0/kopubdotum.min.css"
-    />
   </head>
   <body>
     <div class="home">
       <button type="button" id="img" onclick="location.href='/'">
-        <img src="../public/images/home.png" width="70" />
+        <img src="../../public/images/home.png" width="70" />
       </button>
     </div>
     <h1 class="main-text">TODO LIST</h1>
@@ -28,7 +23,6 @@
         class="text-box"
         placeholder="Enter todo"
         name="content"
-        autocomplete="off"
       />
       <button type="submit" class="btn">Write</button>
     </form>
@@ -39,29 +33,45 @@
       <li>
         <div class="date"><%= date %></div>
       </li>
-      <% } %>
+      <% } if(tasks._id == idTask) { %>
       <li class="todo-item">
-        <div class="todo-item-content" id="content">
-          &emsp;<%= tasks.content %> &emsp;
-        </div>
+        <form action="/todo/update/<%= tasks._id %>" method="post">
+          <input
+            type="text"
+            value="<%= tasks.content %>"
+            name="content"
+            id="edit-box"
+            autocomplete="off"
+          />
+          <button type="submit" id="img">
+            <img src="/public/images/submit.png" width="25px" />
+          </button>
+          <button type="button" id="img" onclick="location.href='/todo'">
+            <img src="/public/images/remove.png" width="20px" />
+          </button>
+        </form>
+      </li>
+      <% } else { %>
+      <li class="todo-item">
+        <div class="todo-item-content">&emsp;<%= tasks.content %> &emsp;</div>
         <div class="edit-btn">
           <button
             type="button"
             id="img"
-            onclick="location.href='/todo/edit/<%= tasks._id %>'"
+            onclick="location.href='/edit/<%= tasks._id %>'"
           >
-            <img src="../public/images/edit.png" width="20px" />
+            <img src="/public/images/edit.png" width="20px" />
           </button>
           <button
             type="button"
             id="img"
-            onclick="location.href='/todo/remove/<%= tasks._id %>'"
+            onclick="location.href='/remove/<%= tasks._id %>'"
           >
-            <img src="../public/images/remove.png" width="20px" />
+            <img src="/public/images/remove.png" width="20px" />
           </button>
         </div>
       </li>
-      <% }); %>
+      <% }}); %>
     </ul>
   </body>
 </html>
